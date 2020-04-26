@@ -174,9 +174,9 @@ std::unordered_set<int> RansacPlane(pcl::PointCloud<pcl::PointXYZ>::Ptr cloud, i
 			float y4 = point.y;
 			float z4 = point.z;
 
-			float d = fabs(a*x4+b*y4+c*z4+d)/sqrt(a*a+b*b+c*c);
+			float dis = fabs(a*x4+b*y4+c*z4+d)/sqrt(a*a+b*b+c*c);
 
-			if(d <= distanceTol)
+			if(dis <= distanceTol)
 				inliers.insert(index);
 		}
 
@@ -205,7 +205,7 @@ int main ()
 	// TODO: Change the max iteration and distance tolerance arguments for Ransac function
 	std::unordered_set<int> inliers = RansacPlane(cloud, 10, 0.2);
 
-	pcl::PointCloud<pcl::PointXYZ>::Ptr  cloudInliers(new pcl::PointCloud<pcl::PointXYZ>());
+	pcl::PointCloud<pcl::PointXYZ>::Ptr cloudInliers(new pcl::PointCloud<pcl::PointXYZ>());
 	pcl::PointCloud<pcl::PointXYZ>::Ptr cloudOutliers(new pcl::PointCloud<pcl::PointXYZ>());
 
 	for(int index = 0; index < cloud->points.size(); index++)

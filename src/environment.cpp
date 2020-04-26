@@ -47,7 +47,8 @@ void cityBlock(pcl::visualization::PCLVisualizer::Ptr& viewer, ProcessPointCloud
     //pcl::PointCloud<pcl::PointXYZI>::Ptr filterCloud {pointProcessor.FilterCloud(inputCloud, 0.2f , Eigen::Vector4f (-(X/2),-Y,-Z, 1), Eigen::Vector4f (X, Y, Z, 1))};
     
     inputCloud = pointProcessor.FilterCloud(inputCloud, 0.2, Eigen::Vector4f (-10, -6.5, -2, 1), Eigen::Vector4f (30, 6.5, 1, 1));
-    std::pair<pcl::PointCloud<pcl::PointXYZI>::Ptr, pcl::PointCloud<pcl::PointXYZI>::Ptr> segmentCloud = pointProcessor.SegmentPlane(inputCloud, 25, 0.3);
+    std::pair<pcl::PointCloud<pcl::PointXYZI>::Ptr, pcl::PointCloud<pcl::PointXYZI>::Ptr> segmentCloud = pointProcessor.RansacPlane(inputCloud, 25, 0.3);
+    //std::pair<pcl::PointCloud<pcl::PointXYZI>::Ptr, pcl::PointCloud<pcl::PointXYZI>::Ptr> segmentCloud = pointProcessor.SegmentPlane(inputCloud, 25, 0.3);
     
     //renderPointCloud(viewer,inputCloud,"cloud");
     //renderPointCloud(viewer,filterCloud,"filterCloud");
@@ -70,6 +71,7 @@ void cityBlock(pcl::visualization::PCLVisualizer::Ptr& viewer, ProcessPointCloud
         renderBox(viewer,box,clusterId);
         ++clusterId;
     }
+
 }
 void simpleHighway(pcl::visualization::PCLVisualizer::Ptr& viewer)
 {
